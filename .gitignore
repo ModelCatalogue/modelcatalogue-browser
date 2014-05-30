@@ -1,0 +1,91 @@
+# This is the root .gitignore file
+# Please use this one rather than creating .gitignore files lower down in the directory structure.
+#
+
+# Gradle build cache
+/.gradle
+/build/
+/buildPlugins/
+
+# elasticsearch index
+/data
+/data/**
+data/**
+
+# web application files bootstrap data
+/web-app/WEB-INF/bootstrap-data
+
+# IDEA support files
+/.idea/
+/*.iml
+/out/
+/atlassian-ide-plugin.xml
+/groovy_metadata_registry-grailsPlugins.iml
+
+# Eclipse support files
+/.classpath
+/.launch
+/.project
+/.settings
+/*.launch
+/*.tmproj
+/ivy*
+/eclipse
+/.metadata
+/*.iws #Was *.iws (but have restricted to dir)
+/.metadata
+
+# Sonar cache
+/.sonar
+
+# default HSQL database files for production mode
+/prodDb.*
+
+# general HSQL database files
+*Db.properties
+*Db.script
+
+# logs
+/stacktrace.log
+/test/reports
+/logs
+
+# project release file
+/*.war
+
+# plugin release file
+/*.zip
+
+# older plugin install locations
+/plugins
+/web-app/plugins
+/web-app/WEB-INF/classes
+/.link_to_grails_plugins
+
+# "temporary" build files
+/target
+/target-eclipse
+/bin
+
+# test report output
+/reports
+
+# Geb testing cache
+/test/drivers 
+
+# Javascript/NodeJS caches
+/grails-app/assets/bower_components/
+/web-app/bower_components/
+/node_modules/
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+cobertura.ser
+
