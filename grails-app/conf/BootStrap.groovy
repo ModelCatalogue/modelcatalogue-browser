@@ -164,18 +164,23 @@ class BootStrap {
         //only permit metadatacurator users access to the api
 
         new Requestmap(url: '/api/modelCatalogue/core/**', configAttribute: 'ROLE_READONLY_USER, ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.GET).save()
- //       new Requestmap(url: '/api/modelCatalogue/core/*/search', configAttribute: 'ROLE_READONLY_USER, ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.GET).save()
- //       new Requestmap(url: '/api/modelCatalogue/core/**/outgoing', configAttribute: 'ROLE_READONLY_USER, ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.GET).save()
- //       new Requestmap(url: '/api/modelCatalogue/core/**/incoming', configAttribute: 'ROLE_READONLY_USER, ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.GET).save()
-        new Requestmap(url: '/api/modelCatalogue/core/search/**', configAttribute: 'ROLE_READONLY_USER, ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.GET).save()
-
+		//chage it too GET as in ReadOnly we are not going to update
+		new Requestmap(url: '/api/modelCatalogue/core/*/*/outgoing/**', configAttribute: 'ROLE_READONLY_USER, ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.GET).save()
+		//chage it too GET as in ReadOnly we are not going to update
+		new Requestmap(url: '/api/modelCatalogue/core/*/*/incoming/**', configAttribute: 'ROLE_READONLY_USER, ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.GET).save()
+		new Requestmap(url: '/api/modelCatalogue/core/search/**', configAttribute: 'ROLE_READONLY_USER, ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.GET).save()
 		new Requestmap(url: '/api/modelCatalogue/core/*/create', configAttribute: 'ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.GET).save()
-		        new Requestmap(url: '/api/modelCatalogue/core/*/edit', configAttribute: 'ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.GET).save()
-        new Requestmap(url: '/api/modelCatalogue/core/*/save', configAttribute: 'ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.POST).save()
-        new Requestmap(url: '/api/modelCatalogue/core/*/update', configAttribute: 'ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.PUT).save()
-        new Requestmap(url: '/api/modelCatalogue/core/*/delete', configAttribute: 'ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.DELETE).save()
+		new Requestmap(url: '/api/modelCatalogue/core/*/edit', configAttribute: 'ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.GET).save()
+        //new Requestmap(url: '/api/modelCatalogue/core/*/save', configAttribute: 'ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.POST).save()
+        //new Requestmap(url: '/api/modelCatalogue/core/*/update', configAttribute: 'ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.PUT).save()
+        //new Requestmap(url: '/api/modelCatalogue/core/*/delete', configAttribute: 'ROLE_READONLY_ADMIN', httpMethod: org.springframework.http.HttpMethod.DELETE).save()
 
-    }
+
+
+
+
+
+	}
 
 	private importDevData(){
 
