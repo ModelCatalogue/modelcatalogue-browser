@@ -10,8 +10,9 @@
 </head>
 
 <body>
-<div id="metadataCurator" ng-app="metadataCurator">
-    <div class="navbar navbar-default navbar-fixed" role="navigation">
+<div id="metadataCurator" ng-app="metadataCurator" style="width: 100%">
+
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavbar">
@@ -80,17 +81,18 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <messages-panel max="3"></messages-panel>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <ui-view></ui-view>
+        <div class="container">
+            <div class="row">
+                <messages-panel max="3"></messages-panel>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ui-view></ui-view>
+                </div>
             </div>
         </div>
-    </div>
 </div>
+
 <asset:javascript src="angular/metaDataCurator.js"/>
 <script type="text/javascript">
     angular.module('demo.config', ['mc.core.modelCatalogueApiRoot']).value('modelCatalogueApiRoot', '${request.contextPath ?: ''}/api/modelCatalogue/core')
