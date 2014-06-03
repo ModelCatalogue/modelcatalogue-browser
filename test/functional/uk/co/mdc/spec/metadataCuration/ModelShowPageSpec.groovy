@@ -15,7 +15,7 @@ class ModelShowPageSpec extends GebReportingSpec {
 
 	def setup() {
 		to LoginPage
-		loginAdminUser()
+		loginRegularUser()
 		waitFor {
 			at ModelListPage
 		}
