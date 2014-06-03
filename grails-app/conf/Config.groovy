@@ -143,8 +143,7 @@ grails{
 			userLookup.userDomainClassName = 'uk.co.mdc.SecUser'
 			userLookup.authorityJoinClassName = 'uk.co.mdc.SecUserSecAuth'
 			authority.className = 'uk.co.mdc.SecAuth'
-            requestMap.className = 'uk.co.mdc.Requestmap'
-            securityConfigType = 'Requestmap'
+            securityConfigType = 'InterceptUrlMap'
             logout.postOnly = false
 
 			//disable to prevent double encryption of passwords
@@ -168,6 +167,74 @@ grails{
 					user.save()
 				}
 			}
+
+			interceptUrlMap = [
+					'/': 				['permitAll'],
+					'/**/favicon.ico':	['permitAll'],
+					'/fonts/**': 		['permitAll'],
+					'/assets/**': 		['permitAll'],
+					'/plugins/**/js/**':['permitAll'],
+					'/js/vendor/**': 	['permitAll'],
+					'/**/*.less': 		['permitAll'],
+					'/**/js/**': 		['permitAll'],
+					'/**/css/**': 		['permitAll'],
+					'/**/images/**': 	['permitAll'],
+					'/**/img/**': 		['permitAll'],
+					'/login': 			['permitAll'],
+					'/login.*': 		['permitAll'],
+					'/login/*': 		['permitAll'],
+					'/logout': 			['permitAll'],
+					'/logout.*': 		['permitAll'],
+					'/logout/*': 		['permitAll'],
+					'/register': 		['permitAll'],
+					'/register/index': 			['permitAll'],
+					'/register/forgotPassword': ['permitAll'],
+					'/register/resetPassword': 	['permitAll'],
+					'/register/register': 		['permitAll'],
+					'/errors': 			['permitAll'],
+					'/errors/*': 		['permitAll'],
+
+
+					//only permit users
+					'/dashboard':	 	  [ "hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && isFullyAuthenticated()"],
+					'/dashboard/**':	  [ "hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && isFullyAuthenticated()"],
+					'/pathways':  		  [ "hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && isFullyAuthenticated()"],
+					'/pathways/**':  	  [ "hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && isFullyAuthenticated()"],
+					'/pathway': 		  [ "hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && isFullyAuthenticated()"],
+					'/pathway/**':   	  [ "hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && isFullyAuthenticated()"],
+					'/pathways.json':     [ "hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && isFullyAuthenticated()"],
+					'/metadataCurator':   [ "hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && isFullyAuthenticated()"],
+					'/metadataCurator/**':[ "hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && isFullyAuthenticated()"],
+
+					'/bootstrap-data/**': 		[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/admin': 					[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/admin/**': 				[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/securityInfo/**': 		[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/role': 					[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/role/**': 				[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/registrationCode': 		[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/registrationCode/**': 	[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/user': 					[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/user/**': 				[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/aclClass': 				[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/aclClass/**': 			[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/aclSid': 					[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/aclSid/**': 				[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/aclEntry': 				[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/aclEntry/**': 			[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+					'/aclObjectIdentity': 		[ "hasRole('ROLE_READONLY_ADMIN') && isFullyAuthenticated()"],
+
+					'/register/changePassword': [ "hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && isFullyAuthenticated()"],
+
+					'/api/modelCatalogue/core/*/*/outgoing/**':["hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && request.getMethod().equals('GET')"],
+					'/api/modelCatalogue/core/*/*/incoming/**':["hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && request.getMethod().equals('GET')"],
+					'/api/modelCatalogue/core/**':			   ["hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && request.getMethod().equals('GET')"],
+					'/api/modelCatalogue/core/search/**':	   ["hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && request.getMethod().equals('GET')"],
+					'/api/modelCatalogue/core/*/create':       ["hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && request.getMethod().equals('GET')"],
+					'/api/modelCatalogue/core/*/edit':         ["hasAnyRole('ROLE_READONLY_ADMIN', 'ROLE_READONLY_USER') && request.getMethod().equals('GET')"]
+
+			]
+
 		}
 	}
 
