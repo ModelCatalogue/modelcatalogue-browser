@@ -14,7 +14,7 @@ class ExportButtonSpec extends GebReportingSpec {
 
 	def gotToConceptualDomainListPage() {
 		to LoginPage
-		loginAdminUser()
+		loginRegularUser()
 		waitFor {
 			at ModelListPage
 		}

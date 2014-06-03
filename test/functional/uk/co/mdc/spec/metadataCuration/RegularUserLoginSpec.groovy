@@ -2,6 +2,7 @@ package uk.co.mdc.spec.metadataCuration
 
 import geb.spock.GebReportingSpec
 import org.openqa.selenium.Dimension
+import spock.lang.Unroll
 import uk.co.mdc.pages.authentication.ChangePasswordPage
 import uk.co.mdc.pages.authentication.LoginPage
 import uk.co.mdc.pages.authentication.UnAuthorizedPage
@@ -99,7 +100,8 @@ class RegularUserLoginSpec extends GebReportingSpec{
 
 
 
-	def"regular user can not access administration urls"(){
+	@Unroll
+	def"regular user can not access administration urls #NotAuthorizedUrl"(){
 		when:"regular user goes to an admin url"
 		at ModelListPage
 		go NotAuthorizedUrl
@@ -109,11 +111,26 @@ class RegularUserLoginSpec extends GebReportingSpec{
 			at UnAuthorizedPage
 		}
 		where:""
-		NotAuthorizedUrl << ["admin/importData",
-							 "admin/importRelationships",
-							 "admin/importICU",
-							 "admin/importCOSD",
-							 "admin/oldImportData",
-							 "admin/importRelationships"]
+		NotAuthorizedUrl <<
+							[
+							"role/search",
+							"role/create",
+							"user/search",
+							"user/create",
+							"registrationCode/search",
+							"role/pendingUsers",
+							"bootstrap-data",
+							"admin",
+							"securityInfo",
+							"role",
+							"registrationCode",
+							"user",
+							"aclClass",
+							"aclSid",
+							"aclEntry",
+							"aclObjectIdentity"
+							]
+
+
 	}
 }
