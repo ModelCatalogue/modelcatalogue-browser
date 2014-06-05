@@ -86,7 +86,7 @@ grails.project.dependency.resolution = {
         }
 
 
-        runtime 'mysql:mysql-connector-java:5.1.22'
+		runtime 'postgresql:postgresql:9.1-901.jdbc4'
 
 		test "org.modelcatalogue:simple-fixtures:0.1.2"
 
