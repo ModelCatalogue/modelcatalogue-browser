@@ -71,11 +71,8 @@ environments {
 		dataSource {
 			// FIXME we should remove dbCreate and use the database-migration plugin... or should we? If we're deploying a new instance rather than upgrading, this may not be necessary.
 			dbCreate = "update"
-			driverClassName = "org.postgresql.Driver"
-			dialect = "org.hibernate.dialect.PostgreSQLDialect"
-			url = "jdbc:postgresql://localhost:5432/modelcatalogue"
-			username = "postgres"
-			password="1"
+			driverClassName = "com.mysql.jdbc.Driver"
+			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
 			pooled = true
 			properties {
 				maxActive = -1
