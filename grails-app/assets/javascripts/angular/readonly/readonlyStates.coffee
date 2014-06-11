@@ -220,34 +220,45 @@ angular.module('mc.core.ui.readonly.readonlyStates', ['ui.router'])
 
   $templateCache.put 'modelcatalogue/core/ui/state/show.html', '''
     <div>
-      <div ng-if="element.elementType == 'org.modelcatalogue.core.DataElement'">
-        <dataelement-view-read-only element="element" ></dataelement-view-read-only>
-      </div>
-
 
     <div ng-if="element.elementType == 'org.modelcatalogue.core.DataType'">
-      <datatype-view-read-only element="element" ></datatype-view-read-only>
+      <!--<datatype-view-read-only element="element" ></datatype-view-read-only>-->
+      <catalogue-element-view-read-only element="element" ></catalogue-element-view-read-only>
     </div>
 
 
     <div ng-if="element.elementType == 'org.modelcatalogue.core.EnumeratedType'">
-        <enumerateddatatype-view-read-only element="element" ></enumerateddatatype-view-read-only>
+      <!--  <enumerateddatatype-view-read-only element="element" ></enumerateddatatype-view-read-only> -->
+      <catalogue-element-view-read-only element="element" ></catalogue-element-view-read-only>
+    </div>
+
+
+
+    <div ng-if="element.elementType == 'org.modelcatalogue.core.ConceptualDomain'">
+     <!-- <conceptualdomain-view-read-only element="element" ></conceptualdomain-view-read-only> -->
+      <catalogue-element-view-read-only element="element" excludetabs="tab1,tabs2,tab3"></catalogue-element-view-read-only>
+    </div>
+
+
+    <div ng-if="element.elementType == 'org.modelcatalogue.core.DataElement'">
+<!--        <dataelement-view-read-only element="element" ></dataelement-view-read-only>-->
+       <catalogue-element-view-read-only element="element" ></catalogue-element-view-read-only>
     </div>
 
 
     <div ng-if="element.elementType == 'org.modelcatalogue.core.Model'">
-      <model-view-read-only element="element" ></model-view-read-only>
+    <!--  <model-view-read-only element="element" ></model-view-read-only> -->
+       <catalogue-element-view-read-only element="element" ></catalogue-element-view-read-only>
+
     </div>
 
 
-    <div ng-if="element.elementType == 'org.modelcatalogue.core.ConceptualDomain'">
-      <conceptualdomain-view-read-only element="element" ></conceptualdomain-view-read-only>
-    </div>
 
-    <!--
-        <catalogue-element-view-read-only element="element" ></catalogue-element-view-read-only>
-    -->
+ <!--
+      ACTUAL  <br>
+       <catalogue-element-view element="element" ></catalogue-element-view>
 
+-->
 
     </div>
   '''
@@ -255,24 +266,10 @@ angular.module('mc.core.ui.readonly.readonlyStates', ['ui.router'])
 
   $templateCache.put 'modelcatalogue/core/ui/catalogueElementViewReadOnly.html', '''
     <div>
-      <h3 class="ce-name">{{element.name}} <small ng-show="element.elementTypeName">({{element.elementTypeName}}: {{element.id}})</small></h3>
-      <blockquote class="ce-description" ng-show="element.description">{{element.description}}</blockquote>
-      <tabset ng-show="showTabs">
-        <tab heading="{{tab.heading}}" disabled="tab.disabled" ng-repeat="tab in tabs" active="tab.active" select="select(tab)">
-            <div ng-switch="tab.type">
-              <properties-pane item="tab.value" properties="tab.properties" ng-switch-when="properties-pane" id="{{id + '-' + tab.name}}"></properties-pane>
-              <decorated-list list="tab.value" columns="tab.columns" actions="tab.actions" ng-switch-when="decorated-list" id="{{id + '-' + tab.name}}" reports="tab.reports"></decorated-list>
-            </div>
-        </tab>
-      </tabset>
-    </div>
-    '''
 
 
-
-  $templateCache.put 'modelcatalogue/core/ui/modelViewReadOnly.html', '''
-    <div>
-      <span class="pull-right">
+      <!-- It is used just for Models to show an Export button-->
+       <span class="pull-right" ng-show="reports">
         <div class="btn-group btn-group-sm">
           <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="reports &amp;&amp; reports.length == 0">
             <span class="glyphicon glyphicon-download-alt"></span> Export <span class="caret"></span>
@@ -283,6 +280,7 @@ angular.module('mc.core.ui.readonly.readonlyStates', ['ui.router'])
         </div>
       </span>
 
+
       <h3 class="ce-name">{{element.name}} <small ng-show="element.elementTypeName">({{element.elementTypeName}}: {{element.id}})</small></h3>
       <blockquote class="ce-description" ng-show="element.description">{{element.description}}</blockquote>
       <tabset ng-show="showTabs">
@@ -295,6 +293,5 @@ angular.module('mc.core.ui.readonly.readonlyStates', ['ui.router'])
       </tabset>
     </div>
     '''
-
 
 ])

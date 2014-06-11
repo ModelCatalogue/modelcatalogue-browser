@@ -6,6 +6,7 @@
 #= require dataTypeViewReadOnly
 #= require enumeratedDataTypeViewReadOnly
 #= require modelViewReadOnly
+#= require readonlyFilter
 
 
 
@@ -16,9 +17,5 @@ angular.module('mc.core.ui.readonly', [
   # list of modules
   'mc.core.ui.readonly.readonlyStates',
   'mc.core.ui.catalogueElementViewReadOnly',
-  'mc.core.ui.dataElementViewReadOnly',
-  'mc.core.ui.conceptualDomainViewReadOnly',
-  'mc.core.ui.dataTypeViewReadOnly',
-  'mc.core.ui.enumeratedDataTypeViewReadOnly',
-  'mc.core.ui.modelViewReadOnly',
+  'mc.core.readonlyFilter'
 ])

@@ -73,6 +73,8 @@ environments {
 			dbCreate = "update"
 			driverClassName = "com.mysql.jdbc.Driver"
 			dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+			url = "jdbc:mysql://localhost:13306/modelcatalogue"
+			username = "root"
 			pooled = true
 			properties {
 				maxActive = -1
