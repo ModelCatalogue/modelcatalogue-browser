@@ -37,6 +37,7 @@
                             <li ui-sref-active="active"><a id="dataElementLink" ui-sref="mc.resource.list({resource: 'dataElement', page:'1'})">Data Elements</a></li>
                             <li ui-sref-active="active"><a id="dataTypeLink" ui-sref="mc.resource.list({resource: 'dataType', page:'1'})">Data Types</a></li>
                             <li ui-sref-active="active"><a id="modelLink" ui-sref="mc.resource.list({resource: 'model', page:'1'})">Models</a></li>
+                            <li ui-sref-active="active"><a id="valueDomainLink" ui-sref="mc.resource.list({resource: 'valueDomain', page:'1'})">Value Domains</a></li>
                         </ul>
                     </li>
                     <sec:ifAnyGranted roles="ROLE_READONLY_ADMIN">

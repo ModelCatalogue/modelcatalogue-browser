@@ -22,13 +22,13 @@ class DataElementShowPage extends BasePageWithNav {
 		dataTypesTab{waitFor { $("div.tabbable ul li[heading='DataType']")}}
 		metadataTab {waitFor { $("div.tabbable ul li[heading='Metadata']")}}
 		modelsTab {waitFor { $("div.tabbable ul li[heading='Models']")}}
-		relatedToTab {waitFor { $("div.tabbable ul li[heading='Related To']")}}
+		relatedToTab {waitFor { $("div.tabbable ul li[heading='Relationships']")}}
 
 
-		propertiesTable {waitFor {$("table#-properties")}}
+		propertiesTable {waitFor {$("table[properties='tab.properties']")}}
 		dataTypesTable {waitFor {$("table#-instantiatedBy")}}
-		metadataTable {waitFor {$("table#-ext")}}
+		metadataTable {waitFor {$("table.soe-table")}}
 		modelsTable {waitFor {$("table#-containedIn")}}
-//		relatedToTable {waitFor {$("table#-relatedTo")}}
+		relatedToTable {waitFor {$("table#-relationships")}}
 	}
 }

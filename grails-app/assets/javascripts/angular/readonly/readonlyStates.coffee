@@ -4,8 +4,8 @@ angular.module('mc.core.ui.readonly.readonlyStates', ['ui.router'])
     $scope.element  = element
 
 #    We are not going to show ValueDomain & MeasurementUnit
-    if $scope.element.elementType == 'org.modelcatalogue.core.ValueDomain' || $scope.element.elementType == "org.modelcatalogue.core.MeasurementUnit"
-      $state.go("defaultHome")
+#    if $scope.element.elementType == 'org.modelcatalogue.core.ValueDomain' || $scope.element.elementType == "org.modelcatalogue.core.MeasurementUnit"
+#      $state.go("defaultHome")
 
   ])
 .controller('mc.core.ui.states.ListCtrl', ['$scope', '$stateParams', '$state', '$log', 'list', 'names', 'enhance', ($scope, $stateParams, $state, $log, list, names, enhance) ->
@@ -22,8 +22,8 @@ angular.module('mc.core.ui.readonly.readonlyStates', ['ui.router'])
     ]
 
     #    We are not going to show ValueDomain & MeasurementUnit
-    if $scope.resource == 'valueDomain' || $scope.resource == "measurementUnit"
-      $state.go("defaultHome")
+#    if $scope.resource == 'valueDomain' || $scope.resource == "measurementUnit"
+#      $state.go("defaultHome")
 
 
     if $scope.resource == 'model'
@@ -45,10 +45,10 @@ angular.module('mc.core.ui.readonly.readonlyStates', ['ui.router'])
 
     # As we are not going to show ValueDomain & MeasurementUnit
     # This defaultHome will help us to redirect to default page when we face a valueDomain or a measurementUnit
-  $stateProvider.state 'defaultHome', {
-    onEnter: ($location)->
-      $location.path('/catalogue/model/all')
-  }
+#  $stateProvider.state 'defaultHome', {
+#    onEnter: ($location)->
+#      $location.path('/catalogue/model/all')
+#  }
 
   $stateProvider.state 'mc', {
     abstract: true
@@ -193,7 +193,7 @@ angular.module('mc.core.ui.readonly.readonlyStates', ['ui.router'])
             <span class="glyphicon glyphicon-download-alt"></span> Export <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu" id="exportBtnItems">
-            <li><a ng-href="{{report.url}}" target="_blank" ng-repeat="report in list.availableReports">{{natural(report.name)}}</a></li>
+            <li><a ng-href="{{report.url}}" target="_blank" ng-repeat="report in list.availableReports">{{report.title}}</a></li>
           </ul>
         </div>
       </span>
@@ -254,11 +254,17 @@ angular.module('mc.core.ui.readonly.readonlyStates', ['ui.router'])
 
 
 
- <!--
+    <div ng-if="element.elementType == 'org.modelcatalogue.core.ValueDomain'">
+    <!--  <model-view-read-only element="element" ></model-view-read-only> -->
+       <catalogue-element-view-read-only element="element" ></catalogue-element-view-read-only>
+    </div>
+
+
+    <!--
       ACTUAL  <br>
        <catalogue-element-view element="element" ></catalogue-element-view>
+      -->
 
--->
 
     </div>
   '''
@@ -266,32 +272,55 @@ angular.module('mc.core.ui.readonly.readonlyStates', ['ui.router'])
 
   $templateCache.put 'modelcatalogue/core/ui/catalogueElementViewReadOnly.html', '''
     <div>
-
-
-      <!-- It is used just for Models to show an Export button-->
-       <span class="pull-right" ng-show="reports">
+      <span class="pull-right">
         <div class="btn-group btn-group-sm">
-          <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="reports &amp;&amp; reports.length == 0">
+          <button type="button" class="btn btn-primary dropdown-toggle" ng-disabled="reports &amp;&amp; reports.length == 0  &amp;&amp; !element.availableReports">
             <span class="glyphicon glyphicon-download-alt"></span> Export <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a ng-href="{{report.url}}" target="_blank" ng-repeat="report in reports">{{report.name || 'Export'}}</a></li>
+            <li role="presentation" class="dropdown-header">{{element.elementTypeName}} Exports</li>
+            <li><a ng-href="{{report.url}}" target="_blank" ng-repeat="report in element.availableReports">{{report.title || 'Export'}}</a></li>
+            <li class="divider" role="presentation" ng-show="reports &amp;&amp; reports.length != 0 &amp;&amp; element.availableReports"></li>
+            <li role="presentation" class="dropdown-header" ng-show="reports &amp;&amp; reports.length != 0">Exports for {{naturalPropertyName}}</li>
+            <li><a ng-href="{{report.url}}"  target="_blank" ng-repeat="report in reports">{{report.title || 'Export'}}</a></li>
           </ul>
         </div>
       </span>
-
-
       <h3 class="ce-name">{{element.name}} <small ng-show="element.elementTypeName">({{element.elementTypeName}}: {{element.id}})</small></h3>
       <blockquote class="ce-description" ng-show="element.description">{{element.description}}</blockquote>
+
       <tabset ng-show="showTabs">
         <tab heading="{{tab.heading}}" disabled="tab.disabled" ng-repeat="tab in tabs" active="tab.active" select="select(tab)">
             <div ng-switch="tab.type">
-              <properties-pane item="tab.value" properties="tab.properties" ng-switch-when="properties-pane" id="{{id + '-' + tab.name}}"></properties-pane>
+              <div ng-switch-when="simple-object-editor">
+                <simple-object-editor object="tab.value"></simple-object-editor>
+              </div>
+              <properties-pane item="tab.value" properties="tab.properties" ng-switch-when="properties-pane"></properties-pane>
               <decorated-list list="tab.value" columns="tab.columns" actions="tab.actions" ng-switch-when="decorated-list" id="{{id + '-' + tab.name}}" reports="tab.reports"></decorated-list>
             </div>
         </tab>
       </tabset>
+
+
     </div>
     '''
+
+  $templateCache.put 'modelcatalogue/core/ui/simpleObjectEditor.html', '''
+    <div>
+      <table class="soe-table table">
+            <thead>
+              <th class="col-md-4 soe-table-property-key"> </th>
+              <th class="col-md-7 soe-table-property-value "> </th>
+             </thead>
+            <tbody>
+              <tr class="soe-table-property-row" ng-repeat="property in editableProperties" ng-class="{'has-error': !isKeyUnique(property.key)}">
+                <th class="soe-table-property-key col-md-4">{{property.key}}</th>
+                <td class="soe-table-property-value col-md-7">{{property.value}}</td>
+              </tr>
+            </tbody>
+       </table>
+    </div>
+  '''
+
 
 ])

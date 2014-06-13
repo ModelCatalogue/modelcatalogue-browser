@@ -37,7 +37,6 @@ class ExportButtonSpec extends GebReportingSpec {
 
 
 	def gotToConceptualDataElementListPage() {
-		driver.manage().window().setSize(new Dimension(1028, 768))
 		to LoginPage
 		loginAdminUser()
 		waitFor {
@@ -123,9 +122,9 @@ class ExportButtonSpec extends GebReportingSpec {
 
 		where:
 		index | label
-		0	  | "General"
-		1	  | "NHI C"
-		2	  | "COS D"
+		0	  | "Catalogue Elements to Excel"
+		1	  | "COSD"
+		2	  | "NHIC"
 	}
 
 

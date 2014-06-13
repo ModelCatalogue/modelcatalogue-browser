@@ -41,7 +41,7 @@ class ModelShowPageSpec extends GebReportingSpec {
 			childOfTab.displayed
 		}
 		waitFor {
-			conceptualDomainTab.displayed
+			contextTab.displayed
 		}
 		waitFor {
 			dataElementsTab.displayed

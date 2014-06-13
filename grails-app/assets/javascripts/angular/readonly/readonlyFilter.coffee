@@ -10,9 +10,10 @@ angular.module('mc.core.readonlyFilter', [])
       "org.modelcatalogue.core.DataType":["History","Superseded By","Supersedes","Value Domains","Relationships","Properties"]
       "org.modelcatalogue.core.EnumeratedType":["History","Superseded By","Supersedes","Value Domains","Relationships","Properties"]
       "org.modelcatalogue.core.DataElement":["History","Superseded By","Supersedes"]
+      "org.modelcatalogue.core.ValueDomain":["History","Superseded By","Supersedes","Relationships"]
     }
 
-    #Changes column names based no type of the element
+    #Changes column names based on type of the element
     refineTab: (element,tabDefinition) ->
       switch element.elementType
         when "org.modelcatalogue.core.ConceptualDomain" then this.filterConceptualDomainHeader(tabDefinition)
@@ -20,6 +21,7 @@ angular.module('mc.core.readonlyFilter', [])
         when "org.modelcatalogue.core.DataElement"      then this.filterDataElementHeader(tabDefinition);
         when "org.modelcatalogue.core.DataType"         then this.filterDataTypeHeader(tabDefinition)
         when "org.modelcatalogue.core.EnumeratedType"   then this.filterEnumeratedTypeHeader(tabDefinition)
+        when "org.modelcatalogue.core.ValueDomain"      then this.filterValueDomainHeader(tabDefinition)
         else return
 
 
@@ -28,6 +30,22 @@ angular.module('mc.core.readonlyFilter', [])
       if this.excludeList[element.elementType] && this.excludeList[element.elementType].indexOf(tabDefinition.heading) != -1
         return true
       return false
+
+
+
+    filterValueDomainHeader: (tabDefinition) ->
+      if tabDefinition.heading == "Included In"
+        tabDefinition.heading = "Conceptual Domains"
+        tabDefinition.columns = [
+          {header: 'Name',     value: "relation.name", classes: 'col-md-3', show: "relation.show()"}
+          {header: 'Identification',         value:  "'ConceptualDomain: '+relation.id+''",  classes: 'col-md-4', show: "relation.show()"}]
+      if tabDefinition.heading == "Instantiates"
+        tabDefinition.heading = "Data Elements"
+        tabDefinition.columns =  [
+          {header: 'Name',     value: "relation.name",    classes: 'col-md-2', show: "relation.show()"}
+          {header: 'Identification',        value:  "relation.modelCatalogueId",     classes: 'col-md-3', show: "relation.show()"}]
+      if tabDefinition.heading == "Ext"
+        tabDefinition.heading = "Metadata"
 
 
     #Remane tab and list columns for ConceptualDomain
@@ -52,7 +70,7 @@ angular.module('mc.core.readonlyFilter', [])
       if tabDefinition.heading == "Ext"
         tabDefinition.heading = "Metadata"
       if tabDefinition.heading == "Has Context Of"
-        tabDefinition.heading = "Conceptual Domain"
+        tabDefinition.heading = "Context"
         tabDefinition.columns = [
           {header: 'Name',     value: "relation.name",                                 classes: 'col-md-2', show: "relation.show()"}
           {header: 'Identification',  value: "relation.elementTypeName + ': ' + relation.id", classes: 'col-md-3', show: "relation.show()"}]

@@ -13,7 +13,7 @@ grails.project.fork = [
 ]
 
 
-//grails.plugin.location.'ModelCatalogueCorePlugin' = "../ModelCataloguePlugin/ModelCatalogueCorePlugin"
+grails.plugin.location.'ModelCatalogueCorePlugin' = "../ModelCataloguePlugin/ModelCatalogueCorePlugin"
 //grails.plugin.location.'ModelCatalogueElasticSearchPlugin' = "../ModelCataloguePlugin/ModelCatalogueElasticSearchPlugin"
 
 // Grails 2.3 uses Aether by default
@@ -106,7 +106,7 @@ grails.project.dependency.resolution = {
         compile ":famfamfam:1.0.1"
 		//compile ":elasticsearch:0.0.3.0"
 
-		compile "org.modelcatalogue.plugins:grails-model-catalogue-core-plugin:0.3.1"
+//		compile "org.modelcatalogue.plugins:grails-model-catalogue-core-plugin:0.3.1"
 
 
 

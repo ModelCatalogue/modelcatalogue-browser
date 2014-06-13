@@ -21,7 +21,7 @@ class ModelShowPage extends BasePageWithNav{
 		propertiesTab {waitFor {$("div.tabbable ul li[heading='Properties']")}}
 		childOfTab{waitFor { $("div.tabbable ul li[heading='Child Of']")}}
 
-		conceptualDomainTab {waitFor { $("div.tabbable ul li[heading='Conceptual Domain']")}}
+		contextTab {waitFor { $("div.tabbable ul li[heading='Context']")}}
 		dataElementsTab {waitFor { $("div.tabbable ul li[heading='Data Elements']")}}
 
 		metadataTab {waitFor { $("div.tabbable ul li[heading='Metadata']")}}
