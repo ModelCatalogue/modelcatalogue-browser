@@ -101,7 +101,18 @@ environments {
 							'/login/*': 		'REQUIRES_SECURE_CHANNEL',
 					]
 					auth.forceHttps = true
-				 }
+
+					//But when using a load balancer such as an F5 BIG-IP it's not possible to just check secure/insecure.
+					// In that case you can configure the load balancer to set a request header indicating the current state.
+					//http://grails-plugins.github.io/grails-spring-security-core/guide/channelSecurity.html
+					secureChannel.useHeaderCheckChannelSecurity = true
+					portMapper.httpPort = 80
+					portMapper.httpsPort = 443
+					secureChannel.secureHeaderName = 'X-Forwarded-Proto'
+					secureChannel.secureHeaderValue = 'http'
+					secureChannel.insecureHeaderName = 'X-Forwarded-Proto'
+					secureChannel.insecureHeaderValue = 'https'
+				}
 			}
 		}
 	}
