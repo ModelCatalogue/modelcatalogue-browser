@@ -171,23 +171,15 @@ controller: ['$scope', '$log', '$filter', '$q', '$state', 'enhance', 'names', 'c
     $scope.property = tab.name
     return if not tab.loader?
     if !tab.disabled and tab.value.empty
-      tab.loader().then (result) ->
-#        COLUMN ISSSUEEEE, it should not be intialised again
-#        tab.columns = columns(result.itemType)
+      relationshipType = ''
 
-#        As we just want relations between dataElement to be displayed
-#        so we added this code which is a hack
-#        in later version we are going to add a filter to decoratedList in MC-Plugin and
-#        then we can filter any list
-        if tab.heading == "Relationships"
-          index = 0
-          for item in result.list.slice(0)
-              if item.relation.elementTypeName != "Data Element"
-                result.list.splice(index,1)
-                index--
-                result.total = result.total - 1
-                result.size  = result.size - 1
-              index++
+#       As we just want relatedTo relationships, it will reutnrs just relatedTo relationship
+      if tab.heading == "Relationships"
+        relationshipType = "relatedTo"
+#      debugger
+      tab.loader(relationshipType).then (result) ->
+#      COLUMN ISSSUEEEE, it should not be intialised again
+#      tab.columns = columns(result.itemType)
         tab.value = result
 
 

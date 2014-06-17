@@ -18,7 +18,7 @@
                     <a class="text-muted feedback" id="feedback" >Feedback</a>
                 </sec:ifLoggedIn>
             </div>
-            <div class="col-sm-4"><p class="text-muted">Model Catalogue &copy; 2014 </p></div>
+            <div class="col-sm-4"><p class="text-muted">Model Catalogue &copy; 2014&nbsp&nbspv<g:meta name="app.version"/> </p> </div>
             <div class="col-sm-4"></div>
         </div>
     </div>
