@@ -95,7 +95,6 @@ class BootStrap {
 
 	}
 
-
 	private importDevData(){
 
 		if(!SecUser.findByUsername('ruser1')){
