@@ -90,7 +90,20 @@ environments {
 							"mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
 							"mail.smtp.socketFactory.fallback":"false"]
 			}
-		 }
+
+			plugins{
+				springsecurity{
+					//This will ask server to use HTTPS when accessing login page
+					//after login, communication channel remains in HTTPS as  WE HAVE NOT DEFINED channel status for other pages
+					secureChannel.definition = [
+							'/login': 			'REQUIRES_SECURE_CHANNEL',
+							'/login.*': 		'REQUIRES_SECURE_CHANNEL',
+							'/login/*': 		'REQUIRES_SECURE_CHANNEL',
+					]
+					auth.forceHttps = true
+				 }
+			}
+		}
 	}
 }
 
