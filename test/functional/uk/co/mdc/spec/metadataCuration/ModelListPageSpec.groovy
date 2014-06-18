@@ -2,6 +2,7 @@ package uk.co.mdc.spec.metadataCuration
 
 import geb.spock.GebReportingSpec
 import org.openqa.selenium.Dimension
+import spock.lang.Stepwise
 import uk.co.mdc.pages.authentication.LoginPage
 import uk.co.mdc.pages.metadataCuration.ListPage.ConceptualDomainListPage
 import uk.co.mdc.pages.metadataCuration.ListPage.DataElementListPage
@@ -14,11 +15,12 @@ import uk.co.mdc.pages.metadataCuration.ShowPage.ModelShowPage
 /**
  * Created by soheil on 15/05/2014.
  */
+@Stepwise
 class ModelListPageSpec extends GebReportingSpec{
 
 
 
-	def setup(){
+	def setupSpec(){
 		to LoginPage
 		loginRegularUser()
 		waitFor{
@@ -30,7 +32,10 @@ class ModelListPageSpec extends GebReportingSpec{
 	def "Navigating to ModelShowPage, it shows TreeModel"(){
 
 		when: "I'm at main Metadata showPage"
-		at ModelListPage
+		to ModelListPage
+		waitFor {
+			at ModelListPage
+		}
 
 		then: "it shows model treeView"
 		waitFor {
@@ -42,7 +47,11 @@ class ModelListPageSpec extends GebReportingSpec{
 
 	def "Clicking on a collapse icon top level model will show its sub models"(){
 		when: "Click on a top level parent node"
-		at ModelListPage
+		to ModelListPage
+		waitFor {
+			at ModelListPage
+		}
+
 		waitFor {
 			NHIC_Model_Item_Icon.displayed
 		}
@@ -59,7 +68,10 @@ class ModelListPageSpec extends GebReportingSpec{
 	def"Clicking on a model name, its name and description will be displayed on the main label"(){
 
 		when: "Click on a model"
-		at ModelListPage
+		to ModelListPage
+		waitFor {
+			at ModelListPage
+		}
 		waitFor {
 			$(ModelListPage.modelTree).displayed
 		}
@@ -89,7 +101,10 @@ class ModelListPageSpec extends GebReportingSpec{
 	def "Clicking on a model name, its dataElements will be displayed on the table"(){
 
 		when: "Click on a model"
-		at ModelListPage
+		to ModelListPage
+		waitFor {
+			at ModelListPage
+		}
 		waitFor {
 			$(ModelListPage.modelTree).displayed
 		}
@@ -131,7 +146,10 @@ class ModelListPageSpec extends GebReportingSpec{
 	def "Clicking on a model show icon, will show the model page"(){
 
 		when: "Click on a model"
-		at ModelListPage
+		to ModelListPage
+		waitFor {
+			at ModelListPage
+		}
 		waitFor {
 			$(ModelListPage.modelTree).displayed
 		}
@@ -163,7 +181,10 @@ class ModelListPageSpec extends GebReportingSpec{
 	def "Clicking on a dataElement, will redirect us to dataElement show page"(){
 
 		when: "Click on a dataElement in dataElement table"
-		at ModelListPage
+		to ModelListPage
+		waitFor {
+			at ModelListPage
+		}
 		waitFor {
 			NHIC_Model_Item_Icon.displayed
 		}
@@ -205,7 +226,10 @@ class ModelListPageSpec extends GebReportingSpec{
 	def "Conceptual Domains subMenu will redirect us to ConceptualDomain List page"(){
 
 		when: "Click on ConceptualDomain List sub-menu"
-		at ModelListPage
+		to ModelListPage
+		waitFor {
+			at ModelListPage
+		}
 		waitFor {
 			nav.catalogueElementLink.displayed
 		}
@@ -224,7 +248,10 @@ class ModelListPageSpec extends GebReportingSpec{
 	def "DataElements subMenu will redirect us to DataElements List page"(){
 
 		when: "Click on ConceptualDomain List sub-menu"
-		at ModelListPage
+		to ModelListPage
+		waitFor {
+			at ModelListPage
+		}
 		waitFor {
 			nav.catalogueElementLink.displayed
 		}
@@ -245,7 +272,10 @@ class ModelListPageSpec extends GebReportingSpec{
 	def "DataType subMenu will redirect us to DataType List page"(){
 
 		when: "Click on DataType List sub-menu"
-		at ModelListPage
+		to ModelListPage
+		waitFor {
+			at ModelListPage
+		}
 		waitFor {
 			nav.catalogueElementLink.displayed
 		}
@@ -266,8 +296,11 @@ class ModelListPageSpec extends GebReportingSpec{
 
 	def "Model subMenu will redirect us to ModelShowPage"(){
 
-		when: "Click on DataType List sub-menu"
-		at ModelListPage
+		when: "Click on ModelShowpage sub-menu"
+		to ModelListPage
+		waitFor {
+			at ModelListPage
+		}
 		waitFor {
 			nav.catalogueElementLink.displayed
 		}
@@ -277,7 +310,7 @@ class ModelListPageSpec extends GebReportingSpec{
 		}
 		nav.modelLink.click()
 
-		then:"will redirect us to ModelShowPage"
+		then:"it will redirect us to ModelShowPage"
 		waitFor {
 			at ModelListPage
 		}
