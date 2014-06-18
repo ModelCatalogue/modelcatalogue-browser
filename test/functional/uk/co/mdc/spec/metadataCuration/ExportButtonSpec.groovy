@@ -37,7 +37,6 @@ class ExportButtonSpec extends GebReportingSpec {
 
 
 	def gotToConceptualDataElementListPage() {
-		driver.manage().window().setSize(new Dimension(1028, 768))
 		to LoginPage
 		loginAdminUser()
 		waitFor {
@@ -145,7 +144,11 @@ class ExportButtonSpec extends GebReportingSpec {
 
 		waitFor {
 			$(DataElementListPage.exportButtonItems).displayed
+		}
+		waitFor {
 			$(DataElementListPage.exportButtonItems).find("li",0).displayed
+		}
+		waitFor {
 			$(DataElementListPage.exportButtonItems).find("li",0).find("a",index).displayed
 		}
 
