@@ -2,6 +2,7 @@ package uk.co.mdc.spec.metadataCuration
 
 import geb.spock.GebReportingSpec
 import org.openqa.selenium.Dimension
+import spock.lang.Stepwise
 import uk.co.mdc.pages.authentication.LoginPage
 import uk.co.mdc.pages.metadataCuration.ListPage.ConceptualDomainListPage
 import uk.co.mdc.pages.metadataCuration.ListPage.DataElementListPage
@@ -10,11 +11,19 @@ import uk.co.mdc.pages.metadataCuration.ListPage.ModelListPage
 /**
  * Created by soheil on 22/05/2014.
  */
+@Stepwise
 class ExportButtonSpec extends GebReportingSpec {
 
-	def gotToConceptualDomainListPage() {
+	def setupSpec(){
 		to LoginPage
 		loginRegularUser()
+		waitFor {
+			at ModelListPage
+		}
+	}
+
+	def gotToConceptualDomainListPage() {
+		to ModelListPage
 		waitFor {
 			at ModelListPage
 		}
@@ -37,8 +46,7 @@ class ExportButtonSpec extends GebReportingSpec {
 
 
 	def gotToConceptualDataElementListPage() {
-		to LoginPage
-		loginAdminUser()
+		to ModelListPage
 		waitFor {
 			at ModelListPage
 		}
@@ -57,7 +65,6 @@ class ExportButtonSpec extends GebReportingSpec {
 		waitFor {
 			DataElementListPage
 		}
-
 	}
 
 
@@ -114,9 +121,13 @@ class ExportButtonSpec extends GebReportingSpec {
 
 		$(DataElementListPage.exportButton).click()
 
+		waitFor {
+			$(DataElementListPage.exportButtonItems).displayed
+		}
 		then: "list of available reports will be displayed in a menu"
-		$(DataElementListPage.exportButtonItems).displayed
-		$(DataElementListPage.exportButtonItems).find("li",0).displayed
+		waitFor {
+			$(DataElementListPage.exportButtonItems).find("li",0).displayed
+		}
 		$(DataElementListPage.exportButtonItems).find("li",0).find("a").size() == 3
 		$(DataElementListPage.exportButtonItems).find("li",0).find("a")[index].text() == label
 
